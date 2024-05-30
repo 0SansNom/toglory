@@ -48,4 +48,4 @@ dist
 public/.DS_Store
 src/.DS_Store
 public/RoadLV.glb
-public/glory.glb
+# public/glory.glb
