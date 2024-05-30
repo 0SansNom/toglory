@@ -23,7 +23,7 @@ module.exports = {
     static: path.resolve(appDirectory, "public"),
     hot: true,
     devMiddleware: {
-      publicPath: "/",
+      publicPath: "/public",
     },
   },
   module: {
