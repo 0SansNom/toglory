@@ -1,14 +1,16 @@
 const path = require("path");
 const fs = require("fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+
 const appDirectory = fs.realpathSync(process.cwd());
 
 module.exports = {
   entry: {
     main: path.resolve(appDirectory, "src/index.ts"),
-    game: path.resolve(appDirectory, "src/level1.ts"), // Entrée pour le premier niveau de jeu
+    game: path.resolve(appDirectory, "src/level1.ts"),
     level2: path.resolve(appDirectory, "src/level2.ts"),
-    level3: path.resolve(appDirectory, "src/level3.ts") 
+    level3: path.resolve(appDirectory, "src/level3.ts")
   },
   output: {
     filename: "js/[name].js",
@@ -23,7 +25,6 @@ module.exports = {
     port: 8080,
     static: path.resolve(appDirectory, "public"),
     hot: true,
-  
   },
   module: {
     rules: [
@@ -57,14 +58,19 @@ module.exports = {
       inject: true,
       template: path.resolve(appDirectory, "public/game-level2.html"),
       filename: "game-level2.html",
-      chunks: ["main", "level2"], 
+      chunks: ["main", "level2"],
     }),
     new HtmlWebpackPlugin({
-        inject: true,
-        template: path.resolve(appDirectory, "public/game-level3.html"),
-        filename: "game-level3.html",
-        chunks: ["main", "level3"], // Inclure le bundle pour le deuxième niveau de jeu
-      }),
+      inject: true,
+      template: path.resolve(appDirectory, "public/game-level3.html"),
+      filename: "game-level3.html",
+      chunks: ["main", "level3"],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: path.resolve(appDirectory, "public"), to: path.resolve(appDirectory, "dist") },
+      ],
+    }),
   ],
-  mode: "development",
+  mode: "production",
 };
