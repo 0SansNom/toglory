@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Results</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #72edf2 10%, #5151e5 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 2.5em;
+            animation: slideInDown 1s ease-in-out;
+        }
+        h2 {
+            color: #00408a;
+            font-size: 2em;
+            margin-bottom: 10px;
+            animation: slideInDown 1.2s ease-in-out;
+        }
+        h3 {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            animation: slideInDown 1.4s ease-in-out;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            animation: fadeInUp 1.5s ease-in-out;
+        }
+        li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 1.2em;
+            color: #333;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: #fff;
+            background: #1429c6;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1.6s ease-in-out;
+            transition: background 0.3s ease, transform 0.3s ease;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #061796;
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Game Results</h1>
+        <h2 id="winner">Winner: </h2>
+        <h3>Other Bikes:</h3>
+        <ul id="ranks"></ul>
+        <button onclick="goBack()">Back to Home</button>
+        <button onclick="nextLevel()">Next Level</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const scores = JSON.parse(localStorage.getItem('scores'));
+            if (scores) {
+                document.getElementById('winner').innerText = `Winner: ${scores.winner}`;
+                const ranksList = document.getElementById('ranks');
+                scores.ranks.forEach((rank, index) => {
+                    if (rank.name !== scores.winner) {
+                        const li = document.createElement('li');
+                        li.innerText = `${index + 1}. ${rank.name}`;
+                        ranksList.appendChild(li);
+                    }
+                });
+            } else {
+                document.getElementById('winner').innerText = 'No winner data available';
+            }
+        });
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        function nextLevel() {
+            window.location.href = 'game-level3.html';
+        }
+    </script>
+</body>
+</html>

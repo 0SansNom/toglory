@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Racing Game</title>
+    <style>
+        body{
+            background: linear-gradient(135deg, #7f89ff 0%, #289c73 100%);
+        }
+        #timer {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            font-size: 20px;
+        }
+    </style>
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: 'Arial', sans-serif;
+    }
+    #loadingScreen {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1e5799 0%,#2989d8 50%,#207cca 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        z-index: 9999;
+        flex-direction: column;
+        text-align: center;
+    }
+    .bike-container {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        margin-bottom: 20px;
+    }
+    .bike {
+        width: 100px;
+        height: 100px;
+        background-image: url('path/to/bike-icon.png'); /* Replace with the path to your bike icon */
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: absolute;
+        animation: ride 1s infinite linear;
+    }
+    @keyframes ride {
+        0% { transform: translateX(-100px); }
+        100% { transform: translateX(100px); }
+    }
+    .loading-text {
+        font-size: 2em;
+        font-weight: bold;
+        letter-spacing: 0.1em;
+        animation: blink 1.5s infinite step-start;
+    }
+    @keyframes blink {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+    }
+</style>
+</head>
+<body>
+    <div id="timer"></div>
+    <div id="loadingScreen">
+        <div class="bike-container">
+            <div class="bike"></div>
+        </div>
+        <div class="loading-text">Loading...</div>
+    </div>
+    <script src="js/bundle.js"></script>
+
+</body>
+
+<script>
+    
+    const timerElement = document.getElementById('timer');
+    let timerSeconds = 70;
+
+    function updateTimerDisplay() {
+        const minutes = Math.floor(timerSeconds / 60);
+        const seconds = timerSeconds % 60;
+        timerElement.textContent = `Temps restant : ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }
+
+    function startTimer() {
+        updateTimerDisplay();
+        const timerInterval = setInterval(() => {
+            timerSeconds--;
+            updateTimerDisplay();
+
+            if (timerSeconds <= 0) {
+                clearInterval(timerInterval);
+                stopGameAndShowScores();
+            }
+        }, 1000); 
+    }
+
+    
+    
+    startTimer();
+</script>
+</html>
