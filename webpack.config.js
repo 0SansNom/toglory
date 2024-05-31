@@ -46,7 +46,7 @@ module.exports = {
       inject: true,
       template: path.resolve(appDirectory, "public/game.html"),
       filename: "game.html",
-      chunks: ["main", "game"],
+      chunks: ["game"],
     }),
     new HtmlWebpackPlugin({
       inject: true,
@@ -58,13 +58,13 @@ module.exports = {
       inject: true,
       template: path.resolve(appDirectory, "public/game-level2.html"),
       filename: "game-level2.html",
-      chunks: ["main", "level2"],
+      chunks: ["level2"],
     }),
     new HtmlWebpackPlugin({
       inject: true,
       template: path.resolve(appDirectory, "public/game-level3.html"),
       filename: "game-level3.html",
-      chunks: ["main", "level3"],
+      chunks: ["level3"],
     }),
     new CopyWebpackPlugin({
       patterns: [
