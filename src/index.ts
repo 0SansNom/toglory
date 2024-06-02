@@ -1,7 +1,7 @@
-import { App } from './level1';
+import { Level1 } from './level1';
 
 window.addEventListener('DOMContentLoaded', () => {
     if (window.location.pathname.endsWith('game.html')) {
-        new App();
+        new Level1();
     }
 });
